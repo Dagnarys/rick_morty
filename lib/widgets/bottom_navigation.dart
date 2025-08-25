@@ -4,7 +4,7 @@ import 'package:rick_morty/screens/main_screen.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,9 +17,13 @@ class BottomNavigation extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.home, size: 44),
             onPressed: () {
-              Navigator.push(
+              
+              Navigator.pushAndRemoveUntil(
+                
                 context,
                 MaterialPageRoute(builder: (context) => MainScreen()),
+                (route) => false,
+                
               );
             },
           ),
