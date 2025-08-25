@@ -8,7 +8,7 @@ class FavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      body: Text('asd'),
+      body: Center(child: Text('asd')),
       bottomNavigationBar: BottomAppBar(
         padding: EdgeInsets.all(0),
         child: BottomNavigation(),
