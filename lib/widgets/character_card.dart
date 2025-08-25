@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rick_morty/data/models/character_model.dart';
 
 class CharacterCard extends StatelessWidget {
-  const CharacterCard({super.key});
-
+   final Character character;
+  const CharacterCard({super.key, required this.character});
+ 
   @override
   Widget build(BuildContext context) {
     return 
@@ -16,11 +18,12 @@ class CharacterCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.network(
-                      'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+                      character.image,
                       width: 150,
                       height: 150,
                     ),
-                    Text('Rick'),
+                    Text(character.name),
+                    Text(character.species),
                   ],
                 ),
               ),
@@ -30,7 +33,7 @@ class CharacterCard extends StatelessWidget {
                 child: IconButton(
                   iconSize: 35,
                   onPressed: () {},
-                  icon: Icon(Icons.favorite_outline),
+                  icon: Icon(character.favorite?Icons.favorite:Icons.favorite_outline),
                 ),
               ),
             ],
