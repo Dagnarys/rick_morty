@@ -11,35 +11,56 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Rick and Morty'), centerTitle: true),
-      bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.all(0),
-        child: BottomNavigation(),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/img/bg_img.png'),
+          fit: BoxFit.cover,
+        ),
       ),
-      body: BlocBuilder<CharacterCubit, CharacterState>(
-        builder: (context, state) {
-          if (state is CharacterLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (state is CharacterLoaded) {
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              scrollDirection: Axis.vertical,
-              itemCount: state.characters.length,
-              itemBuilder: (context, index) {
-                final character = state.characters[index];
-                return Container(
-                  padding: const EdgeInsets.all(0),
-                  child: CharacterCard(character: character),
-                );
-              },
-            );
-          }
-          return Center(child: Text('Данные не найдены'));
-        },
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(
+            'Rick and Morty',
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+        ),
+        bottomNavigationBar: BottomAppBar(
+          padding: EdgeInsets.all(0),
+          child: BottomNavigation(),
+        ),
+        body: BlocBuilder<CharacterCubit, CharacterState>(
+          builder: (context, state) {
+            if (state is CharacterLoading) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (state is CharacterLoaded) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: GridView.builder(
+                  padding: EdgeInsets.all(16),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 0.8,
+                  ),
+
+                  scrollDirection: Axis.vertical,
+                  itemCount: state.characters.length,
+                  itemBuilder: (context, index) {
+                    final character = state.characters[index];
+                    return CharacterCard(character: character);
+                  },
+                ),
+              );
+            }
+            return Center(child: Text('Данные не найдены'));
+          },
+        ),
       ),
     );
   }
