@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_morty/bloc/cubit/character_cubit.dart';
+import 'package:rick_morty/bloc/cubit/theme_cubit.dart';
 import 'package:rick_morty/data/services/character_service.dart';
+
 import 'package:rick_morty/screens/main_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -14,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_)=>ThemeCubit()),
         BlocProvider(
           create:
               (_) =>
@@ -22,10 +27,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
 
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: MainScreen()
-      ),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: MainScreen()),
     );
   }
 }
