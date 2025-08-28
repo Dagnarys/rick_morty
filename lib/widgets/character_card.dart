@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_morty/bloc/cubit/character_cubit.dart';
+import 'package:rick_morty/bloc/cubit/theme_cubit.dart';
 import 'package:rick_morty/data/models/character_model.dart';
 
 class CharacterCard extends StatelessWidget {
@@ -16,15 +17,47 @@ class CharacterCard extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.all(0),
-            color: const Color.fromARGB(255, 230, 252, 131),
+            color:
+                context.read<ThemeCubit>().state.isDarkMode
+                    ? const Color.fromARGB(255, 37, 40, 41)
+                    : Color.fromARGB(255, 230, 252, 131),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
 
               children: [
-                Image.network(character.image, width: 170, height: 170),
+                Image.network(
+                  character.image,
+                  width: 170,
+                  height: 170,
+                  errorBuilder: (context, error, StackTrace) {
+                    return Image.asset(
+                      'assets/img/mock.png',
+                      width: 170,
+                      height: 170,
+                    );
+                  },
+                ),
 
-                Text(character.name),
-                Text(character.species),
+                Text(
+                  character.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color:
+                        context.read<ThemeCubit>().state.isDarkMode
+                            ? Colors.white
+                            : Colors.black,
+                  ),
+                ),
+                Text(
+                  character.species,
+                  style: TextStyle(
+                     fontWeight: FontWeight.bold,
+                    color:
+                        context.read<ThemeCubit>().state.isDarkMode
+                            ? Colors.white
+                            : Colors.black,
+                  ),
+                ),
               ],
             ),
           ),
