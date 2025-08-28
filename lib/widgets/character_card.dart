@@ -29,7 +29,7 @@ class CharacterCard extends StatelessWidget {
                   character.image,
                   width: 170,
                   height: 170,
-                  errorBuilder: (context, error, StackTrace) {
+                  errorBuilder: (context, error, stackTrace) {
                     return Image.asset(
                       'assets/img/mock.png',
                       width: 170,
