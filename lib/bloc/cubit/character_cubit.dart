@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+
+
 import 'package:rick_morty/bloc/state/character_state.dart';
 import 'package:rick_morty/data/models/character_model.dart';
 
@@ -7,7 +9,8 @@ import 'package:rick_morty/data/services/hive_service.dart';
 
 class CharacterCubit extends Cubit<CharacterState> {
   final CharacterService characterService;
-  CharacterCubit({required this.characterService}) : super(CharacterInitial());
+
+  CharacterCubit( {required this.characterService, }) : super(CharacterInitial());
 
   Future<void> loadCharacters() async {
     try {
@@ -37,6 +40,7 @@ class CharacterCubit extends Cubit<CharacterState> {
       final character = currentState.characters.firstWhere(
         (character) => character.id == characterId,
       );
+
       if (character.favorite) {
         await HiveService.removeFromFavorites(characterId);
       } else {
@@ -55,11 +59,12 @@ class CharacterCubit extends Cubit<CharacterState> {
             }
             return character;
           }).toList();
-
+        
       emit(CharacterLoaded(updatedCharacters));
+       
     }
   }
-
+  
   List<Character> get favoriteCharacters {
     if (state is CharacterLoaded) {
       final currentState = state as CharacterLoaded;
