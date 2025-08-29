@@ -30,6 +30,5 @@ dev_dependencies:
 flutter:
   assets: 
     - assets/img/bg_img2.png
-    - assets/img/bg_img.png
     - assets/img/mock.png
   uses-material-design: true
